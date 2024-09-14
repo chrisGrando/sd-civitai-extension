@@ -1,7 +1,6 @@
 import subprocess
 import os
 import sys
-
 import git
 
 from launch import run
@@ -9,10 +8,9 @@ from launch import run
 req_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "requirements.txt")
 
 def is_package_installed(package_name, version):
-    # strip [] from package name
     package_name = package_name.split("[")[0]
     try:
-        result = subprocess.run(['pip', 'show', package_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run([str(sys.executable), '-m', 'pip', 'show', str(package_name)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except FileNotFoundError:
         return False
     if result.returncode == 0:
